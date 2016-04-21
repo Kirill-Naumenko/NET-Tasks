@@ -1,8 +1,6 @@
 ﻿using System;
-using ClassLibrary;
 using System.Configuration;
-using System.Resources;
-using System.Reflection;
+using ClassLibrary;
 
 namespace ConsoleApplication
 {
@@ -66,7 +64,7 @@ namespace ConsoleApplication
                             Console.WriteLine("Nope! Too huge number, sorry");
                         }
                     }
-
+                    //P.S Да я знаю что эксепшенами пользоваться так плохо, но на данный момент 18.04.16 я не знаю как в С# сделать по другому :\
 
                     while (true)
                     {
