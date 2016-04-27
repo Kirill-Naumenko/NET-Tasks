@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task_5
 {
-    class Rectangle
+   public class Rectangle
     {
        public  int a;
        public  int b;

@@ -17,16 +17,34 @@ namespace Task
 
         public int x
         {
-            get { return x; }
-            set { x = value; }
+            get;
+            set;
         }
 
         public int y
         {
-            get { return y; }
-            set { y = value; }
+            get;
+            set;
         }
 
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                
+                return false;
+            }
+
+            Point p = obj as Point;
+            if ((Object)p == null)
+            {
+                return false;
+            }
+
+            
+            return (x == p.x) && (y == p.y);
+        }
 
         public bool Equals(Point point)
         {
@@ -35,6 +53,15 @@ namespace Task
             {
                 return false;
             }
+
+
+
+            if (Object.ReferenceEquals(this, point))
+            {
+                return true;
+            }
+
+
 
             if ((this.x == point.x) && (this.y == point.y)){
                 return true;

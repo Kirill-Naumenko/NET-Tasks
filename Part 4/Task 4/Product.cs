@@ -11,6 +11,16 @@ namespace Task_4
 
         public double price;
 
+        public Product(double price)
+        {
+            this.price = price;
+        }
+
+        public Product()
+        {
+           
+        }
+
         public double getPrice()
         {
             return price;

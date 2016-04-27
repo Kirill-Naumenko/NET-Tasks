@@ -12,9 +12,10 @@ namespace Task_5
     {
         static void Main(string[] args)
         {
-            Rectangle rec1 = new Rectangle(8, 9);//Большой прямоугольник
-            Rectangle rec2 = new Rectangle(3, 2);//Маленький прямоугольник
+            Rectangle rec1 = new Rectangle(6, 5);//Большой прямоугольник
+            Rectangle rec2 = new Rectangle(1, 3);//Маленький прямоугольник
 
+            
 
             Console.WriteLine(Counter.count(rec1, rec2));
             Console.ReadKey();

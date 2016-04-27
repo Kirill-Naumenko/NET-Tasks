@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task_4
 {
-    class Bag : IAction
+    public class Bag : IAction
     {
 
        public List<Product> bag; //Корзина у нас имееет коллекцию продуктов, из корзины можно добвлять и удалять продукты

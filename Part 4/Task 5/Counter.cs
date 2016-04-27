@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Task_5
 {
-    class Counter
+    public class Counter
     {
 
         public static int count(Rectangle rectangle1 , Rectangle rectangle2) // rectangle1 это будет большой прямоугольник, в котором нужно найти количество маленьких прямоугольникол
@@ -33,10 +34,18 @@ namespace Task_5
                 amount = amountYY;
             }
 
+            int remain = ((rectangle1.a * rectangle1.b) - (rectangle2.a * rectangle2.b) * amount); // вычисляем оставшуюся незаполненную площадь
+            int additionAmount = remain / (rectangle2.a * rectangle2.b); // и узнаем сколько еще вмещается маленьких треугольников в оставшейся площади
+            amount = amount + additionAmount;
+
             return amount;
+
+
 
         }
        
 
     }
+
+
 }

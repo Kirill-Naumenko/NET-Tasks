@@ -8,7 +8,7 @@ namespace Task_3
 {
     public class Instance
     {
-        public static int COUNT;
+        public static int COUNT = 0;
 
         public Instance()
         {
