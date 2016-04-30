@@ -57,7 +57,7 @@ namespace Tests
             List<BigInteger> expected = new List<BigInteger>();
             List<BigInteger> actual = new List<BigInteger>();
 
-            expected.Add(0);
+            
             expected.Add(1);
             expected.Add(1);
             expected.Add(2);

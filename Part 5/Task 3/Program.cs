@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,142 +12,103 @@ namespace Task_3
     {
         static void Main(string[] args)
         {
-            int money = 100000;
+           
 
-            XDocument doc = XDocument.Load(@"C:\Users\Kiryl_Navumenka@epam.com\WORKSPACE\Part 5\Task 3\Customers.xml");
-
-
-
-            ////Point 1 Done!
-            //var customers =
-            //     from customer in doc.Root.Elements()
-            //     from orders in customer.Elements("orders")
-            //     where orders.Elements("order").Sum(sum => decimal.Parse(sum.Element("total").Value)) > money
-            //     select customer;
-
-            //foreach (var y in customers)
-            //{
-            //    Console.WriteLine($"Customer: {(string)y.Element("name")}");
-            //}
-            //Console.ReadKey();
+            XDocument doc = XDocument.Load(ConfigurationManager.AppSettings["path"]);
 
 
 
-            ////Point 2 DONE!
-            //var customers =
-            //    from customer in doc.Root.Elements()
-            //    group customer by (string)customer.Element("country");
-
-            //foreach ( var x in p2)
-            //{
-            //    Console.WriteLine(x.Key);
-            //    foreach(var t in x)
-            //    {
-            //        Console.WriteLine("\t\t"+(string)t.Element("name"));
-            //    }
-            //}
+            Console.WriteLine("Пунк 1 : Выдайте список всех клиентов, чей суммарный оборот (сумма всех заказов) превосходит некоторую величину X ");
+            int money = 10000;
+            foreach (var customers in Point1.GetAnswer(doc, money))
+            {
+                Console.WriteLine($"Customer: {(string)customers.Element("name")}");
+            }
 
 
 
-            //Point 3 Done!
-            //var customers = 
-            //    from customer in doc.Root.Elements()
-            //    from order in customer.Element("orders").Elements()
-            //    where (decimal.Parse((string)order.Element("total")) > money)
-            //    select customer;
-
-            //foreach (var y in customers)
-            //{
-            //    Console.WriteLine($"Customer: {(string)y.Element("id")}");
-            //}
-            //Console.ReadKey();
+            Console.WriteLine("\r\n");
 
 
 
-            ////Point 4 Done!
+            Console.WriteLine("Пунк 2 : Сгруппировать клиентов по странам ");
+            foreach (var country in Point2.GetAnswer(doc))
+            {
+                Console.WriteLine(country.Key);
+                foreach (var customer in country)
+                {
+                    Console.WriteLine("\t\t" + (string)customer.Element("name"));
+                }
+            }
 
-            //var cust =
-            //    from customer in doc.Root.Elements("customer")
-            //    from order in customer.Element("orders").Elements("order")
-            //    orderby DateTime.Parse(order.Element("orderdate").Value)
-            //    group order.Element("orderdate").Value by customer.Element("name").Value;
 
-            //foreach ( var t in cust)
-            //{
-            //    Console.WriteLine("name " + t.Key);
-            //    foreach (var r in t)
-            //    {
-            //        Console.WriteLine("\t\t date "+r);
-            //    }
 
-            //}
+            Console.WriteLine("\r\n");
+
+
+
+            Console.WriteLine("Пунк 3 : Найдите всех клиентов, у которых были заказы, превосходящие по сумме величину X");
+            foreach (var customers in Point3.GetAnswer(doc, money))
+            {
+                Console.WriteLine($"Customer: {(string)customers.Element("name")}");
+            }
+
+
+
+            Console.WriteLine("\r\n");
 
 
 
 
+            Console.WriteLine("Пунк 4 : Выдайте список клиентов с указанием, начиная с какого месяца какого года они стали клиентами ");
+            foreach (var customers in Point4.GetAnswer(doc))
+            {
+                Console.WriteLine("name " + customers.Key);
+                foreach (var firstOrder in customers)
+                {
+                    Console.WriteLine("\t\t date " + firstOrder);
+                }
 
-
-            ////Point 5 Done!
-            //var inc = from customer in doc.Root.Elements()
-            //          from orders in customer.Elements("orders")
-            //          select orders.Elements("order").Sum(sum => decimal.Parse(sum.Element("total").Value));
-
-            //var time = from customer in doc.Root.Elements("customer")
-            //           from order in customer.Element("orders").Elements("order")
-            //           select DateTime.Parse(order.Element("orderdate").Value);
-            //var name = from customer in doc.Root.Elements()
-            //           select customer.Element("name");
-
-
-            //var cust =
-            //    from customer in doc.Root.Elements("customer")
-            //    from order in customer.Element("orders").Elements("order")
-            //    orderby time, inc , name descending
-            //    group order.Element("orderdate").Value by customer.Element("name").Value;
-
-            //foreach (var t in cust)
-            //{
-            //    Console.WriteLine("name " + t.Key);
-            //    foreach (var r in t)
-            //    {
-            //        Console.WriteLine("\t\t date " + r);
-            //    }
-
-            //}
+            }
 
 
 
+            Console.WriteLine("\r\n");
 
 
 
+            Console.WriteLine("Пунк 5 : Сделайте предыдущее задание, но выдайте список отсортированным по году, месяцу, оборотам клиента (от максимального к минимальному) и имени клиента ");
+            foreach (var customers in Point5.GetAnswer(doc))
+            {
+                Console.WriteLine("name " + customers.Key);
+                foreach (var sort in customers)
+                {
+                    Console.WriteLine("\t\t date " + sort);
+                }
 
-
-            
-
-            
-
-
-
-            //Point 6 Done!
-            //int temp = 0;
-            //var customers =
-            //    from customer in doc.Root.Elements()
-            //    where
-            //    !customer.Element("phone").ToString().Contains("(")
-            //    || Int32.TryParse((string)customer.Element("postalcode"), out temp)
-            //    || String.IsNullOrEmpty((string)customer.Element("region"))
-
-            //    select customer;
-
-            //foreach (var t in customers)
-            //{
-            //    Console.WriteLine((string)t.Element("name")+ " PHONE "+(string)t.Element("phone"));
-            //    Console.WriteLine((string)t.Element("name") + " CODE " +(string)t.Element("postalcode"));
-            //    Console.WriteLine((string)t.Element("name") + " REGION " +(string)t.Element("region"));
-            //}
+            }
 
 
 
+            Console.WriteLine("\r\n");
+
+
+
+            Console.WriteLine("Пунк 6 : Укажите всех клиентов, у которых указан нецифровой код или не заполнен регион или в телефоне не указан код оператора  ");
+            foreach (var t in Point6.GetAnswer(doc))
+            {
+                Console.WriteLine((string)t.Element("name") + "\r\n\t" + " PHONE " + (string)t.Element("phone"));
+                Console.WriteLine((string)t.Element("name") + "\r\n\t" + " CODE " + (string)t.Element("postalcode"));
+                Console.WriteLine((string)t.Element("name") + "\r\n\t" + " REGION " + (string)t.Element("region"));
+            }
+
+
+            Console.WriteLine("\r\n");
+
+
+
+            Console.WriteLine("Пунк 7 : Рассчитайте среднюю прибыльность каждого города (среднюю сумму заказа по всем клиентам из данного города) и среднюю интенсивность (среднее количество заказов, приходящееся на клиента из каждого города)");
+            Point7.GetAnswer(doc);
 
 
             Console.ReadKey();
