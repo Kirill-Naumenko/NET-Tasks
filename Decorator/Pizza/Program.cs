@@ -10,23 +10,27 @@ namespace Pizza
     {
         static void Main(string[] args)
         {
+            Chooser chooser = new Chooser();
+            Pizza pizza;
+            int countOfSupplemments;
 
 
-            Pizza pizza1 = new MeatPizza();
-            Console.WriteLine($"Name: {pizza1.name}");
-            Console.WriteLine($"Cost: {pizza1.GetCost()}");
-            pizza1 = new PizzaWithPepper(pizza1);
-            Console.WriteLine($"Name: {pizza1.name}");
-            Console.WriteLine($"Cost: {pizza1.GetCost()}");
 
-            Console.WriteLine("\r\n");
+            pizza = chooser.ChoosePizza();
+           
 
-            Pizza pizza2 = new CheseePizza();
-            Console.WriteLine($"Name: {pizza2.name}");
-            Console.WriteLine($"Cost: {pizza2.GetCost()}");
-            pizza2 = new PizzaWithPepperoni(pizza2);
-            Console.WriteLine($"Name: {pizza2.name}");
-            Console.WriteLine($"Cost: {pizza2.GetCost()}");
+        label1: pizza = chooser.ChooseSupplements(pizza);
+            if (chooser.AskAboutMoreSupplements())
+            {
+                goto label1;
+            }
+            else
+            {
+                Console.WriteLine("Your pizza");
+                Console.WriteLine($"Name: {pizza.Name}");
+                Console.WriteLine($"Cost: {pizza.Cost}");
+            }
+           
 
             Console.ReadLine();
 

@@ -8,11 +8,11 @@ namespace Pizza
 {
     abstract class PizzaWithSupplements : Pizza
     {
-        public Pizza pizza;
+        public Pizza Pizza;
 
-        public PizzaWithSupplements(Pizza pizza) : base(pizza.name)
+        public PizzaWithSupplements(Pizza pizza) : base(pizza.Name)
         {
-            this.pizza = pizza;
+            this.Pizza = pizza;
         }
     }
 }

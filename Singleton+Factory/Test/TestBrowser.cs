@@ -16,9 +16,12 @@ namespace Test
         public void Test()
         {
 
-            //IWebDriver driver = Browser.GetInstance();
-            IWebDriver driver = new ChromeDriver("epam.com");
-            Assert.Equals("EPAM | Software Product Development Services", driver.Title);
+            IWebDriver browser = BrowserFactory.GetBrowser();
+
+            browser.Navigate().GoToUrl("epam.com");
+            Assert.Equals("EPAM &#x7c; Software Product Development Services", browser.Title);
+            browser.Close();
+            
 
         }
     }

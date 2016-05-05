@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace Pizza
 {
-    abstract class Pizza 
+    public abstract class Pizza 
     {
 
-        public string name;// { get; set; }
-        public double cost; //{ get; set; }
-        public abstract double GetCost();
+        public string Name;// { get; set; }
+        public double Cost; //{ get; set; }
+        public int CountOfSupplements;
+        //public abstract double GetCost();
 
         public Pizza(string name)
         {
-            this.name = name;
+            this.Name = name;
         }
 
 
