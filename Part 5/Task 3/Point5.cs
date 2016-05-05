@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Task_3
 {
-    class Point5
+    public class  Point5
     {
 
 
@@ -32,7 +32,7 @@ namespace Task_3
             var customers = from cust in doc.Descendants("customer")
                              let orders = cust.Element("orders").Elements("order").ToList()
                              where orders.Count > 0
-                             orderby time, income, name
+                             orderby orders.Min(order => DateTime.Parse(order.Element("orderdate").Value)), orders.Elements("order").Sum(sum => decimal.Parse(sum.Element("total").Value)), cust.Element("name").Value
                              select cust;
              
 

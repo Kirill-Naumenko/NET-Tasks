@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Task_3
 {
-    class Point4
+    public class Point4
     {
 
         //public static IDictionary<string, XElement>GetAnswer(XDocument doc)

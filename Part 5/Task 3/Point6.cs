@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Task_3
 {
-    class Point6
+    public class Point6
     {
         public static IEnumerable<XElement> GetAnswer(XDocument doc)
         {

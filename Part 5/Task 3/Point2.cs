@@ -7,15 +7,15 @@ using System.Xml.Linq;
 
 namespace Task_3
 {
-    class Point2
+    public class Point2
     {
 
 
-        public static IEnumerable<IGrouping<string, XElement>> GetAnswer(XDocument doc)
+        public static IEnumerable<IGrouping<string, string>> GetAnswer(XDocument doc)
         {
             var customers =
                 from customer in doc.Root.Elements()
-                group customer by (string)customer.Element("country");
+                group customer.Element("name").Value by (string)customer.Element("country");
 
             return customers;
 

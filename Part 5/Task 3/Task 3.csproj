@@ -52,14 +52,22 @@
     <Compile Include="Point5.cs" />
     <Compile Include="Point6.cs" />
     <Compile Include="Point7.cs" />
+    <Compile Include="Point7_1.cs" />
+    <Compile Include="Point7_2.cs" />
+    <Compile Include="Point8.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Customers.xml" />
+    <Content Include="CustomersForTest.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

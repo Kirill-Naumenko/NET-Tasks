@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customers>
+  <customer>
+    <id>ALFKI</id>
+    <name>Alfreds Futterkiste</name>
+    <address>Obere Str. 57</address>
+    <city>Berlin</city>
+    <postalcode>12209</postalcode>
+    <country>Germany</country>
+    <phone>030-0074321</phone>
+    <fax>030-0076545</fax>
+    <orders>
+      <order>
+        <id>10643</id>
+        <orderdate>1997-08-25T00:00:00</orderdate>
+        <total>814.50</total>
+      </order>
+      <order>
+        <id>10692</id>
+        <orderdate>1997-10-03T00:00:00</orderdate>
+        <total>878.00</total>
+      </order>
+      <order>
+        <id>10702</id>
+        <orderdate>1997-10-13T00:00:00</orderdate>
+        <total>330.00</total>
+      </order>
+      <order>
+        <id>10835</id>
+        <orderdate>1998-01-15T00:00:00</orderdate>
+        <total>845.80</total>
+      </order>
+      <order>
+        <id>10952</id>
+        <orderdate>1998-03-16T00:00:00</orderdate>
+        <total>471.20</total>
+      </order>
+      <order>
+        <id>11011</id>
+        <orderdate>1998-04-09T00:00:00</orderdate>
+        <total>933.50</total>
+      </order>
+    </orders>
+  </customer>
+  <customer>
+    <id>COMMI</id>
+    <name>Comércio Mineiro</name>
+    <address>Av. dos Lusíadas, 23</address>
+    <city>São Paulo</city>
+    <region>SP</region>
+    <postalcode>05432-043</postalcode>
+    <country>Brazil</country>
+    <phone>(11) 555-7647</phone>
+    <orders>
+      <order>
+        <id>10290</id>
+        <orderdate>1996-08-27T00:00:00</orderdate>
+        <total>2169.00</total>
+      </order>
+      <order>
+        <id>11042</id>
+        <orderdate>1998-04-22T00:00:00</orderdate>
+        <total>405.75</total>
+      </order>
+    </orders>
+  </customer>
+  <customer>
+    <id>FAMIA</id>
+    <name>Familia Arquibaldo</name>
+    <address>Rua Orós, 92</address>
+    <city>São Paulo</city>
+    <region>SP</region>
+    <postalcode>05442-030</postalcode>
+    <country>Brazil</country>
+    <phone>(11) 555-9857</phone>
+    <orders>
+
+      <order>
+        <id>10650</id>
+        <orderdate>1997-08-29T00:00:00</orderdate>
+        <total>1779.20</total>
+      </order>
+      <order>
+        <id>10725</id>
+        <orderdate>1997-10-31T00:00:00</orderdate>
+        <total>287.80</total>
+      </order>
+    </orders>
+  </customer>
+</customers>
