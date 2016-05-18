@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<urls>
+  <url>
+    <path>https://www.google.by/</path>
+    <result>Google</result>
+  </url>
+  <url>
+    <path>https://github.com/</path>
+    <result>How people build software · GitHub</result>
+  </url>
+</urls>
