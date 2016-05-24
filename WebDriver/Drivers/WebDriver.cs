@@ -32,7 +32,7 @@ namespace Drivers
                             _driver = new ChromeDriver();
                             return _driver;
 
-                        case "FireFox":
+                        default:
                             _driver = new FirefoxDriver();
                             return _driver;
 

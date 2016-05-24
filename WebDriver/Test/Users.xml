@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<users>
+  <user>
+    <name>user1</name>
+    <login>naumenkoyser1@gmail.com</login>
+    <password>timefordeath</password>
+  </user>
+  <user>
+    <name>user2</name>
+    <login>naumenkouser2@gmail.com</login>
+    <password>timefordeath</password>
+  </user>
+  <user>
+    <name>user3</name>
+    <login>naumenkouser3@gmail.com</login>
+    <password>timefordeath</password>
+  </user>
+</users>

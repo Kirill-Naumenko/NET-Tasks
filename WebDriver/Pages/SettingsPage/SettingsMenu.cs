@@ -12,22 +12,15 @@ namespace Pages.SettingsPage
     {
         private IWebDriver driver;
 
-        [FindsBy(How = How.XPath, Using = "//a[contains(@class,'f0')]")]
+        [FindsBy(How = How.XPath, Using = "//a[contains(@href,'fwdandpop')]")]
         public IWebElement insetForwardingSettings { get; set; }
-
-
 
 
         public SettingsMenu(IWebDriver driver)
         {
             this.driver = driver;
-            this.driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
             PageFactory.InitElements(this.driver, this);
         }
-
-
-
-        
 
         public void GoToForwardingSettings()
         {

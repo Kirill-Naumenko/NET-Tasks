@@ -43,8 +43,7 @@ namespace Pages
         {
             driver.Navigate().GoToUrl(Base_Url);
         }
-
-        
+               
 
         public void LogIn(string login , string password)
         {
@@ -57,12 +56,6 @@ namespace Pages
                 cbStaySignIn.Click();
             }
             btnSignIn.Click();
-
-
         }
-
-       
-
-
     }
 }

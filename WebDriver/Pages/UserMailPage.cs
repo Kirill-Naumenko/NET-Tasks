@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using System.Threading;
+using OpenQA.Selenium.Interactions;
 
 namespace Pages
 {
@@ -18,7 +20,6 @@ namespace Pages
         public UserMailPage(IWebDriver driver)
         {
             this.driver = driver;
-            this.driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
             PageFactory.InitElements(this.driver, this);
         }
 
@@ -34,7 +35,7 @@ namespace Pages
         [FindsBy(How = How.XPath, Using = "//div[contains(@class, 'aoO') and contains(@class ,'T-I-atl')]")]
         private IWebElement btnSendLetter { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//span[contains(@class,'gb_2a')]")]
+        [FindsBy(How = How.XPath, Using = "//span[contains(@class,'gb_3a')]")]
         private IWebElement btnProfile { get; set; }
         [FindsBy(How = How.XPath, Using = "//a[contains(@href, 'Logout')]")]
         private IWebElement btnExitProfile { get; set; }
@@ -46,36 +47,46 @@ namespace Pages
 
         [FindsBy(How = How.XPath, Using = "//div[contains(@class, 'aos')]")]
         private IWebElement btnSettingsMenu { get; set; }
-        [FindsBy(How = How.ClassName, Using = "J-N-Jz")]
+        [FindsBy(How = How.XPath, Using = "//div[contains(@class, 'aMS')]")]
         public IWebElement btnSettings { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//span[contains(@class, 'CJ')]")]
         private IWebElement btnDropDownMenu { get; set; }
 
+        [FindsBy(How = How.XPath , Using = "//a[contains(@href, 'https://mail-settings.google.com/mail/vf')]")]
+        private IWebElement lkConfirmationForwarding { get; set; }
+        [FindsBy(How =How.XPath,Using ="//input[contains(@type,'submit')]")]
+        public IWebElement btnSubmitforwarding { get; set; }
 
+        
+
+
+//=====================================TESTCASE 1========================================================
         public void Open()
         {
             driver.Navigate().GoToUrl(Base_Url);
         }
 
-        public bool isAlertPresent()
+        public void LogOut()
         {
-            try
+            btnProfile.Click();
+            btnExitProfile.Click();
+            if (isAlertPresent())
             {
-                driver.SwitchTo().Alert();
-                return true;
-            }   
-            catch (NoAlertPresentException)
-            {
-                return false;
-            }   
-        }  
+                driver.SwitchTo().Alert().Accept();
+            }
 
+        }
 
         public void GetSettingsMenu()
         {
-            btnSettingsMenu.Click();
-            btnSettings.Click();
+            //btnSettingsMenu.Click();
+            new Actions(driver).MoveToElement(btnSettingsMenu).ClickAndHold().MoveToElement(btnSettings).Release().Perform();
+            //new Actions(driver).DragAndDrop(btnSettingsMenu, btnSettings).Click().Perform();
+            //btnSettings.Click();
+            //driver.Navigate().GoToUrl("https://mail.google.com/mail/u/0/#settings/general");
+
+          
         }
 
         public void SendMessage(string receiver, string subject, string message)
@@ -87,18 +98,7 @@ namespace Pages
             tfTextMessage.SendKeys(message);
             btnSendLetter.Click();
 
-        }
-
-        public void LogOut()
-        {
-            btnProfile.Click();
-            btnExitProfile.Click();
-            if (isAlertPresent())
-            {
-                driver.SwitchTo().Alert().Accept();
-            }
-            
-        }
+        }  
 
         public bool SelectMessageBySubject(string subject)
         {
@@ -114,12 +114,11 @@ namespace Pages
         public void PutMessageToSpam()
         {
             // !!!!!!ОСТОРОЖНО ГОВНОКОД xPath
-            driver.FindElement(By.XPath("//div[2]/div/div/div[2]/div[2]/div/div")).Click(); 
-        }
-
-        public void GetDropDownMenu()
-        {
-            btnDropDownMenu.Click();
+            driver.FindElement(By.XPath("//div[2]/div/div/div[2]/div[2]/div/div")).Click();
+            //if (driver.FindElement(By.Name("rs")).)
+            //{
+            //    driver.FindElement(By.Name("rs")).Click();
+            //}
         }
 
         public void ToSpamFolder()
@@ -127,6 +126,45 @@ namespace Pages
             btnDropDownMenu.Click();
             btnSpam.Click();
         }
+
+        public void GetDropDownMenu()
+        {
+            btnDropDownMenu.Click();
+        }
+
+        public bool isAlertPresent()
+        {
+            try
+            {
+                driver.SwitchTo().Alert();
+                return true;
+            }
+            catch (NoAlertPresentException)
+            {
+                return false;
+            }
+        }
+
+        
+
+//=========================TESTCASE 2=================================================================
+
+        public void ConfirmForwarding()
+        {
+            lkConfirmationForwarding.Click();
+            var currentHandle = driver.CurrentWindowHandle;
+            var handles = driver.WindowHandles;
+            foreach (var handle in handles)
+            {
+                driver.SwitchTo().Window(handle);
+            }
+
+            btnSubmitforwarding.Click();
+            driver.Close();
+            driver.SwitchTo().Window(currentHandle);
+            
+        }
+
 
     }
 }

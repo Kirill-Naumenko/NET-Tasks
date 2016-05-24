@@ -23,7 +23,6 @@ namespace Pages
         public StartPage(IWebDriver driver)
         {
             this.driver = driver;
-            this.driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
             PageFactory.InitElements(this.driver, this);
         }
 
