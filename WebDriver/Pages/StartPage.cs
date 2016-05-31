@@ -13,9 +13,8 @@ namespace Pages
     {
 
        
-        public const string Base_Url = "https://google.com/";
+        public const string BASE_URL = "https://google.com/";
         private IWebDriver driver;
-
         [FindsBy(How = How.Id, Using = "gb_70")]
         private IWebElement btnSignIntoGmail { get; set; }
 
@@ -28,7 +27,7 @@ namespace Pages
 
         public void Open()
         {
-            driver.Navigate().GoToUrl(Base_Url);
+            driver.Navigate().GoToUrl(BASE_URL);
         }
 
         public void LogInGmail()

@@ -13,7 +13,10 @@ namespace Pages.SettingsPage
         private IWebDriver driver;
 
         [FindsBy(How = How.XPath, Using = "//a[contains(@href,'fwdandpop')]")]
-        public IWebElement insetForwardingSettings { get; set; }
+        public IWebElement tabForwardingSettings { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//a[contains(@href,'filters')]")]
+        public IWebElement tabFilterSettings { get; set; }
 
 
         public SettingsMenu(IWebDriver driver)
@@ -24,7 +27,12 @@ namespace Pages.SettingsPage
 
         public void GoToForwardingSettings()
         {
-            insetForwardingSettings.Click();
+            tabForwardingSettings.Click();
+        }
+
+        public void GoToFilterSettings()
+        {
+            tabFilterSettings.Click();
         }
 
     }

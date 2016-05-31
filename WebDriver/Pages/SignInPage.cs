@@ -11,15 +11,9 @@ namespace Pages
 {
     public class SignInPage
     {
-        public const string Base_Url = "https://accounts.google.com/ServiceLogin?hl=be&passive=true&continue=https://www.google.by/";
+        public const string BASE_URL = "https://accounts.google.com/ServiceLogin?hl=be&passive=true&continue=https://www.google.by/";
         private IWebDriver driver;
 
-        public SignInPage(IWebDriver driver)
-        {
-            this.driver = driver;
-            this.driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
-            PageFactory.InitElements(this.driver, this);   
-        }
 
         [FindsBy(How = How.Id, Using = "Email")]
         private IWebElement tfInputEmail { get; set; }
@@ -36,18 +30,20 @@ namespace Pages
         [FindsBy(How = How.Id, Using = "PersistentCookie")]
         private IWebElement cbStaySignIn { get; set; }
 
-
-
+        public SignInPage(IWebDriver driver)
+        {
+            this.driver = driver;
+            this.driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
+            PageFactory.InitElements(this.driver, this);
+        }
 
         public void Open()
         {
-            driver.Navigate().GoToUrl(Base_Url);
+            driver.Navigate().GoToUrl(BASE_URL);
         }
                
-
         public void LogIn(string login , string password)
         {
-            
             tfInputEmail.SendKeys(login);
             btnNext.Click();
             tfInputPassword.SendKeys(password);

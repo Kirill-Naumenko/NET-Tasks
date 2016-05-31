@@ -7,6 +7,9 @@ using OpenQA.Selenium.Firefox;
 using Pages.SettingsPage;
 using System.Xml.Linq;
 using System.Linq;
+using OpenQA.Selenium.Support.UI;
+using log4net;
+using log4net.Config;
 
 namespace Test
 {
@@ -14,20 +17,34 @@ namespace Test
     public class Test
     {
         IWebDriver driver;
-
+        static TestContext context;
+        public static readonly ILog log = LogManager.GetLogger(typeof(Test));
         //Не забыть исправить хардкод
-        User User1 = new User("naumenkoyser1@gmail.com", "timefordeath"); //Забанены
-        User User2 = new User("naumenkouser2@gmail.com", "timefordeath"); //Забанены
-        User User3 = new User("naumenkouser3@gmail.com", "timefordeath"); //Забанены
-        User User4 = new User("naumenkouser4@gmail.com", "timefordeath");
-        User User5 = new User("naumenkouser5@gmail.com", "timefordeath");
-        Message message1 = new Message("АКЦИЯ!!!!! УВЕЛИЧИТЬ ЧЛЕН на 100 метров БЕСПЛАТНО БЕЗ СМС И РЕГИСТРАЦИИ");
-        Message message2 = new Message("АКЦИЯ!!!!!");
-     
+
+        User User1 = new User("naumenkouser4@gmail.com", "timefordeath");
+        User User2 = new User("naumenkouser5@gmail.com", "timefordeath");
+        User User3 = new User("naumenkouser6@gmail.com", "timefordeath");
+        //Message message1 = new Message("АКЦИЯ!!!!! УВЕЛИЧИТЬ ЧЛЕН на 100 метров БЕСПЛАТНО БЕЗ СМС И РЕГИСТРАЦИИ");
+        //Message message2 = new Message("АКЦИЯ!!!!!");
+        static Random random = new Random();
+        Message message1 = new Message("naumenkouser6@gmail.com", random.Next(0,100000).ToString());
+        Message message2 = new Message("naumenkouser6@gmail.com", random.Next(0, 1050).ToString());
+        Message messageWithAttachment = new Message("naumenkouser5@gmail.com","With Attacment", true);
+        Message messageWithNoAttachment = new Message("naumenkouser5@gmail.com", "With no Attacment");
+
+        Filter filter = new Filter("naumenkouser4@gmail.com");
+        
+
+        [ClassInitialize]
+        public static void ClassSetUp(TestContext c)
+        {
+            context = c;
+            DOMConfigurator.Configure();
+        }
 
         [TestInitialize]
         public void SetUp()
-        {
+        {    
             driver = WebDriver.GetDriver();
             this.driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
         }
@@ -35,6 +52,15 @@ namespace Test
         [TestCleanup]
         public void CleanUp()
         {
+            if(context.CurrentTestOutcome == UnitTestOutcome.Error)
+            {
+                log.Info(context.TestName + " failed");
+            }
+            if (context.CurrentTestOutcome == UnitTestOutcome.Passed)
+            {
+                log.Info(context.TestName + " passed");
+            }
+  
             //driver.Quit();
         }
 
@@ -43,77 +69,48 @@ namespace Test
         [TestMethod]
         public void TestCase1()
         {
-            
-            //Sending message to User2
-            StartPage StartPage = new StartPage(driver);
-            StartPage.Open();
-            SignInPage SignInPage = new SignInPage(driver);
-            SignInPage.Open();
-            SignInPage.LogIn(User4.login, User4.password);
-            UserMailPage UserMailPage = new UserMailPage(driver);
-            UserMailPage.Open();
-            UserMailPage.SendMessage(User5.login,message1.Text, message1.Text);
-            UserMailPage.LogOut();
 
-            //Login as user2 and pull message from user1 to spam 
-            SignInPage.LogIn(User5.login, User5.password);
-            UserMailPage.Open();
-            UserMailPage.SelectMessageBySubject(message1.Text);
-            UserMailPage.PutMessageToSpam();
-            UserMailPage.LogOut();
+            Steps step = new Steps(driver);
+            step.LoginAsUser(User2.login, User2.password);
+            step.SendMessage(message1);
+            step.LogOut();
+            step.LoginAsUser(User3.login, User3.password);
+            step.MarkLetterAsSpam(message1.text);
+            step.LogOut();
+            step.LoginAsUser(User2.login, User2.password);
+            step.SendMessage(message2);
+            step.LogOut();
+            step.LoginAsUser(User3.login, User3.password);
+            bool actualResult = step.CheckSpamFolder(message2.text);
 
-            //Sending message to User2 again
-            SignInPage.LogIn(User4.login, User4.password);
-            UserMailPage.Open();
-            UserMailPage.SendMessage(User5.login, message2.Text, message2.Text);
-            UserMailPage.LogOut();
-
-            //Checking spam
-            SignInPage.LogIn(User5.login, User5.password);
-            UserMailPage.Open();
-            UserMailPage.ToSpamFolder();
-            
-            Assert.IsTrue(UserMailPage.SelectMessageBySubject(message2.Text));
-           
-
-
+            Assert.IsTrue(actualResult);
         }
 
         [TestMethod]
         public void TestCase2()
         {
-            StartPage StartPage = new StartPage(driver);
-            StartPage.Open();
-            SignInPage SignInPage = new SignInPage(driver);
-            SignInPage.Open();
+            //filter.attachment = true;
+            //filter.deleteIt = true;
+            //filter.markAsimportant = true;
 
-            //Login as user 2
-            SignInPage.LogIn(User5.login,User5.password);
-            UserMailPage UserMailPage = new UserMailPage(driver);
-            UserMailPage.Open();
-            //Go to settings menu
-            UserMailPage.GetSettingsMenu();
-            
-            SettingsMenu SettingsMenu = new SettingsMenu(driver);
-            //Go to forwarding settings and set forward to user3
-            SettingsMenu.GoToForwardingSettings();
-            ForwardSettingsPage forwardSettingsPage = new ForwardSettingsPage(driver);
-            forwardSettingsPage.SetForwardUser(User4.login);
-            UserMailPage.Open();
-            UserMailPage.LogOut();
+            Steps step = new Steps(driver);
+            //step.LoginAsUser(User2.login, User2.password);
+            //step.SetForwardingToUser(User1.login);
+            //step.LoginAsUser(User1.login, User1.password);
+            //step.ConfirmForwardingFrom(User2.login);
+            //step.LoginAsUser(User2.login, User2.password);
+            //step.EndoOfSettingForwarding();
+            //step.CreateNewFilter(filter);
+            //step.LogOut();
+            step.LoginAsUser(User1.login, User1.password);
+            step.SendMessage(messageWithAttachment);
+            //IJavaScriptExecutor js = driver as IJavaScriptExecutor;
+            //js.ExecuteScript("return $('input').show()");
+            //step.SendMessageToUser(User2.login, messageWithAttachment.Text, messageWithAttachment.Text);
+            //***************************
 
-            SignInPage.LogIn(User4.login, User4.password);
-            UserMailPage.SelectMessageBySubject(User5.login);
-            UserMailPage.ConfirmForwarding();
-            UserMailPage.LogOut();
-
-            SignInPage.LogIn(User5.login, User5.password);
-            UserMailPage.Open();
-            UserMailPage.GetSettingsMenu();
-            SettingsMenu.GoToForwardingSettings();
-            forwardSettingsPage.SetForwardCopyTo();
-
-
+            //*****************************
+            Assert.IsTrue(false);
         }
 
     }
