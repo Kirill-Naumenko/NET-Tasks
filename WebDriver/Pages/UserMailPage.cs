@@ -124,7 +124,6 @@ namespace Pages
                 return true;
             }
             return false;
-            
         }
 
         public void PutMessageToSpam()

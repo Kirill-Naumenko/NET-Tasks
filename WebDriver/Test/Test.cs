@@ -20,7 +20,7 @@ namespace Test
         static TestContext context;
         public static readonly ILog log = LogManager.GetLogger(typeof(Test));
         //Не забыть исправить хардкод
-
+         
         User User1 = new User("naumenkouser4@gmail.com", "timefordeath");
         User User2 = new User("naumenkouser5@gmail.com", "timefordeath");
         User User3 = new User("naumenkouser6@gmail.com", "timefordeath");

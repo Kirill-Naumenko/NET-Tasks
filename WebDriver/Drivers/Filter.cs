@@ -13,8 +13,6 @@ namespace Drivers
         public bool deleteIt { get; set; }
         public bool markAsimportant { get; set; }
 
-
-
         public Filter(string login)
         {
             from = login;
@@ -22,9 +20,5 @@ namespace Drivers
             deleteIt = false;
             markAsimportant = false;
         }
-
-        
-
-
     }
 }
